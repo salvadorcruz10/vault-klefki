@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  # https://hub.docker.com/_/vault/
+  vault:
+    cap_add:
+      # Attempts to lock memory to prevent sensitive values
+      # from being swapped to disk
+      - IPC_LOCK
+    command: server -config=/etc/vault/vault.hcl
+    container_name: vault
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
+      AWS_DYNAMODB_TABLE: ${AWS_DYNAMODB_TABLE}
+      VAULT_AWSKMS_SEAL_KEY_ID: ${VAULT_AWSKMS_SEAL_KEY_ID}
+      VAULT_API_ADDR: http://127.0.0.1:8200
+      VAULT_CLUSTER_ADDR: https://127.0.0.1:8201
+    image: vault:1.0.2
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./config:/etc/vault/:rw
