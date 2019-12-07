@@ -6,13 +6,13 @@ variable "service" {
 
 variable "environment" {
   description = "The environment, such as development/stage/production"
-  default = "production"
+  default     = "production"
 }
 
 # AWS
 variable "aws_profile" {
-  type="string"
-  description="Profile"
+  type        = "string"
+  description = "Profile"
 }
 
 variable "aws_region" {
@@ -62,6 +62,6 @@ variable "app_health_check" {
   description = "The path for checking the health of the app"
   # Return 200 even if Vault is uninitialized
   # https://www.vaultproject.io/api/system/health.html
-  default     = "/v1/sys/health?uninitcode=200&sealedcode=200"
+  default = "/v1/sys/health?uninitcode=200&sealedcode=200"
 }
 

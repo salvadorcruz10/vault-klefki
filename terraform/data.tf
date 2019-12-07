@@ -8,12 +8,10 @@ data "aws_subnet_ids" "network" {
 
 locals {
   subnet_ids_string = join(",", data.aws_subnet_ids.network.ids)
-  subnet_ids_list = split(",", local.subnet_ids_string)
+  subnet_ids_list   = split(",", local.subnet_ids_string)
 }
 
 data "aws_subnet" "network" {
-  #count = "${length(data.aws_subnet_ids.network.ids)}"
-  #id    = "${data.aws_subnet_ids.network.ids[count.index]}"
   count = length(data.aws_subnet_ids.network.ids)
   id    = local.subnet_ids_list[count.index]
 }
@@ -25,9 +23,9 @@ data "aws_route53_zone" "domain" {
 data "template_file" "vault_container" {
   template = "${file("${path.module}/templates/vault-container.json.tpl")}"
 
-  vars ={
+  vars = {
     app_image_version = "${aws_ecr_repository.app.repository_url}:${var.app_image_version}"
-    app_port  = "${var.app_port}"
+    app_port          = "${var.app_port}"
 
     aws_region = "${var.aws_region}"
 

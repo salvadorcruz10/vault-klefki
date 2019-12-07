@@ -25,8 +25,8 @@ resource "aws_ecs_task_definition" "app" {
 }
 
 resource "aws_ecs_service" "app" {
-  depends_on      = ["aws_ecs_task_definition.app"]
-  name            = "${var.service}-${var.environment}-ecs-service"
+  depends_on = ["aws_ecs_task_definition.app"]
+  name       = "${var.service}-${var.environment}-ecs-service"
 
   cluster         = "${aws_ecs_cluster.main.id}"
   task_definition = "${aws_ecs_task_definition.app.arn}"
@@ -40,8 +40,8 @@ resource "aws_ecs_service" "app" {
   }
 
   network_configuration {
-    security_groups  = ["${module.sg_app.this_security_group_id}"]
-    subnets          = "${data.aws_subnet.network.*.id}"
+    security_groups = ["${module.sg_app.this_security_group_id}"]
+    subnets         = "${data.aws_subnet.network.*.id}"
     # If set to false, a NAT Gateway is needed
     # https://github.com/aws/amazon-ecs-agent/issues/1128
     assign_public_ip = "true"

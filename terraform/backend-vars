@@ -1,4 +1,4 @@
-bucket="airtm-terraform-vault-development-test"
+bucket="aws-vault-ecs-terraform-development"
 key="terraform.tfstate"
 region="us-east-1"
 profile="wizeline"

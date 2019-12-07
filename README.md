@@ -1,4 +1,4 @@
-# vault-klefki
+# AWS-vault-ecs-terraform
 
 Generic solution to deploy Vault on ECS
 
@@ -15,7 +15,7 @@ Generic solution to deploy Vault on ECS
 
 - Create an S3 bucket to store the Terraform state,
 ```bash
-$ aws s3 mb s3://airtm-terraform-vault-development-test
+$ aws s3 mb s3://aws-vault-ecs-terraform-development
 ```
 
 - Run [Terraform's init](https://www.terraform.io/docs/commands/init.html) command with its configuration file
