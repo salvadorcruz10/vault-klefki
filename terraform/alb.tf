@@ -31,7 +31,7 @@ resource "aws_alb" "public" {
   internal        = false
   idle_timeout    = "300"
   security_groups = ["${module.sg_alb.this_security_group_id}"]
-  subnets = ["${data.aws_subnet.network.*.id}"]
+  subnets = "${data.aws_subnet.network.*.id}"
 }
 
 # DNS record

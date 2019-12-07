@@ -15,13 +15,14 @@ resource "aws_dynamodb_table" "vault_storage" {
   hash_key       = "Path"
   range_key      = "Key"
 
-  attribute = [{
+  attribute {
     name = "Path"
     type = "S"
-  }, {
+  }
+  attribute {
     name = "Key"
     type = "S"
-  }]
+  }
 }
 
 resource "aws_kms_key" "vault_storage" {

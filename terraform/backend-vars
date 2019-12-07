@@ -1,0 +1,4 @@
+bucket="airtm-terraform-vault-development-test"
+key="terraform.tfstate"
+region="us-east-1"
+profile="wizeline"

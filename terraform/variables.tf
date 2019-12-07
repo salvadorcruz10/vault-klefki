@@ -10,6 +10,11 @@ variable "environment" {
 }
 
 # AWS
+variable "aws_profile" {
+  type="string"
+  description="Profile"
+}
+
 variable "aws_region" {
   description = "The AWS region things are created in"
   default     = "us-east-1"
@@ -59,3 +64,4 @@ variable "app_health_check" {
   # https://www.vaultproject.io/api/system/health.html
   default     = "/v1/sys/health?uninitcode=200&sealedcode=200"
 }
+

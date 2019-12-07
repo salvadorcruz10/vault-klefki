@@ -1,6 +1,3 @@
-provider "aws" {
-  region = "${var.aws_region}"
-}
 
 resource "aws_ecs_cluster" "main" {
   name = "ecs-cluster-fargate"
@@ -44,7 +41,7 @@ resource "aws_ecs_service" "app" {
 
   network_configuration {
     security_groups  = ["${module.sg_app.this_security_group_id}"]
-    subnets          = ["${data.aws_subnet.network.*.id}"]
+    subnets          = "${data.aws_subnet.network.*.id}"
     # If set to false, a NAT Gateway is needed
     # https://github.com/aws/amazon-ecs-agent/issues/1128
     assign_public_ip = "true"
