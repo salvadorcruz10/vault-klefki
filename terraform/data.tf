@@ -1,9 +1,9 @@
 data "aws_vpc" "network" {
-  id = "${var.vpc_id}"
+  id = var.vpc_id
 }
 
 data "aws_subnet_ids" "network" {
-  vpc_id = "${data.aws_vpc.network.id}"
+  vpc_id = data.aws_vpc.network.id
 }
 
 locals {
@@ -17,26 +17,26 @@ data "aws_subnet" "network" {
 }
 
 data "aws_route53_zone" "domain" {
-  name = "${var.domain_name}"
+  name = var.domain_name
 }
 
 data "template_file" "vault_container" {
-  template = "${file("${path.module}/templates/vault-container.json.tpl")}"
+  template = file("${path.module}/templates/vault-container.json.tpl")
 
   vars = {
     app_image_version = "${aws_ecr_repository.app.repository_url}:${var.app_image_version}"
-    app_port          = "${var.app_port}"
+    app_port          = var.app_port
 
-    aws_region = "${var.aws_region}"
+    aws_region = var.aws_region
 
-    container_cpu    = "${var.container_cpu}"
-    container_memory = "${var.container_memory}"
+    container_cpu    = var.container_cpu
+    container_memory = var.container_memory
 
-    service     = "${var.service}"
-    environment = "${var.environment}"
+    service     = var.service
+    environment = var.environment
 
-    dynamodb_table = "${aws_dynamodb_table.vault_storage.id}"
-    kms_key_id     = "${aws_kms_key.vault_storage.key_id}"
-    s3_bucket      = "${aws_s3_bucket.vault_storage.id}"
+    dynamodb_table = aws_dynamodb_table.vault_storage.id
+    kms_key_id     = aws_kms_key.vault_storage.key_id
+    s3_bucket      = aws_s3_bucket.vault_storage.id
   }
 }

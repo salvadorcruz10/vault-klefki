@@ -14,23 +14,23 @@ data "aws_iam_policy_document" "ecs_task" {
 # - write logs in CloudWatch
 resource "aws_iam_role" "ecs_execution_role" {
   name               = "ecs-execution-role-${var.service}-${var.environment}"
-  assume_role_policy = "${data.aws_iam_policy_document.ecs_task.json}"
+  assume_role_policy = data.aws_iam_policy_document.ecs_task.json
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_execution_role" {
-  role       = "${aws_iam_role.ecs_execution_role.name}"
+  role       = aws_iam_role.ecs_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
 # Role assumed by the Vault container
 resource "aws_iam_role" "ecs_task_role" {
   name               = "ecs-task-role-${var.service}-${var.environment}"
-  assume_role_policy = "${data.aws_iam_policy_document.ecs_task.json}"
+  assume_role_policy = data.aws_iam_policy_document.ecs_task.json
 }
 
 resource "aws_iam_role_policy" "ecs_task_role" {
   name = "${var.service}-${var.environment}"
-  role = "${aws_iam_role.ecs_task_role.id}"
+  role = aws_iam_role.ecs_task_role.id
 
   policy = <<EOF
 {

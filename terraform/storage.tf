@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "vault_storage" {
   acl    = "private"
   bucket = "airtm-${var.service}-${var.environment}"
 
-  region = "${var.aws_region}"
+  region = var.aws_region
 }
 
 # https://www.vaultproject.io/docs/configuration/storage/dynamodb.html
